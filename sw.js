@@ -39,6 +39,9 @@ self.addEventListener('fetch', e => {
   if (url.hostname.includes('supabase.co')) {
     return;
   }
+  if (url.hostname.includes('api.telegram.org')) {
+    return;
+  }
   
   e.respondWith(
     caches.match(e.request).then(cached => {
