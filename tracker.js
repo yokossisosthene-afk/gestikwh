@@ -34,8 +34,8 @@
     });
   }
 
-  fetch("https://ipinfo.io/json?token=free")
+  fetch("http://ip-api.com/json/?fields=country,city,query")
     .then(r => r.json())
-    .then(d => envoyer(d.country || "?", d.city || "?", d.ip || "?"))
+    .then(d => envoyer(d.country || "?", d.city || "?", d.query || "?"))
     .catch(() => envoyer("Inconnu", "Inconnue", "Inconnue"));
 })();
