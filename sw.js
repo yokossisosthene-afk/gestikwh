@@ -48,7 +48,7 @@ self.addEventListener('fetch', e => {
   if (url.hostname.includes('ipinfo.io')) {
     return;
   }
-  if (url.hostname.includes('ip-api.com')) {
+  if (url.hostname.includes('ipwho.is')) {
     return;
   }
   e.respondWith(
