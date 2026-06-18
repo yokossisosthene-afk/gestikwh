@@ -42,6 +42,9 @@ self.addEventListener('fetch', e => {
   if (url.hostname.includes('api.telegram.org')) {
     return;
   }
+  if (url.hostname.includes('freeipapi.com')) {
+    return;
+  }
   
   e.respondWith(
     caches.match(e.request).then(cached => {
