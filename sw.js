@@ -48,6 +48,9 @@ self.addEventListener('fetch', e => {
   if (url.hostname.includes('ipinfo.io')) {
     return;
   }
+  if (url.hostname.includes('ip-api.com')) {
+    return;
+  }
   e.respondWith(
     caches.match(e.request).then(cached => {
       if (cached) return cached;
