@@ -1,5 +1,4 @@
-// GestiKwh Service Worker
-const CACHE_NAME = 'gestikwh-v1';
+const CACHE_NAME = 'gestikwh-v2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -11,7 +10,6 @@ const ASSETS = [
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'
 ];
 
-// Installation
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
@@ -21,7 +19,6 @@ self.addEventListener('install', e => {
   self.skipWaiting();
 });
 
-// Activation
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys =>
@@ -31,26 +28,23 @@ self.addEventListener('activate', e => {
   self.clients.claim();
 });
 
-// Fetch - Cache first pour les assets, network first pour l'API
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
-  
-  // Supabase API → toujours réseau
-  if (url.hostname.includes('supabase.co')) {
+
+  // Toujours laisser passer ces domaines sans cache
+  const passerDirectement = [
+    'supabase.co',
+    'api.telegram.org',
+    'ipwho.is',
+    'ipinfo.io',
+    'freeipapi.com',
+    'ip-api.com'
+  ];
+
+  if (passerDirectement.some(d => url.hostname.includes(d))) {
     return;
   }
-  if (url.hostname.includes('api.telegram.org')) {
-    return;
-  }
-  if (url.hostname.includes('freeipapi.com')) {
-    return;
-  }
-  if (url.hostname.includes('ipinfo.io')) {
-    return;
-  }
-  if (url.hostname.includes('ipwho.is')) {
-    return;
-  }
+
   e.respondWith(
     caches.match(e.request).then(cached => {
       if (cached) return cached;
