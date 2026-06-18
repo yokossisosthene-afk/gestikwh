@@ -45,7 +45,9 @@ self.addEventListener('fetch', e => {
   if (url.hostname.includes('freeipapi.com')) {
     return;
   }
-  
+  if (url.hostname.includes('ipinfo.io')) {
+    return;
+  }
   e.respondWith(
     caches.match(e.request).then(cached => {
       if (cached) return cached;
