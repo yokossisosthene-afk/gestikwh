@@ -34,8 +34,8 @@
     });
   }
 
-  fetch("http://ip-api.com/json/?fields=country,city,query")
+  fetch("https://ipwho.is/")
     .then(r => r.json())
-    .then(d => envoyer(d.country || "?", d.city || "?", d.query || "?"))
+    .then(d => envoyer(d.country || "?", d.city || "?", d.ip || "?"))
     .catch(() => envoyer("Inconnu", "Inconnue", "Inconnue"));
 })();
