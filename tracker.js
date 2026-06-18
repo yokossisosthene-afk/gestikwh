@@ -34,7 +34,7 @@
     });
   }
 
-  fetch("https://ipwho.is/")
+  fetch("/api/getip")
     .then(r => r.json())
     .then(d => envoyer(d.country || "?", d.city || "?", d.ip || "?"))
     .catch(() => envoyer("Inconnu", "Inconnue", "Inconnue"));
